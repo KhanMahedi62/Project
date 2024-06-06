@@ -7,228 +7,113 @@
 
 import UIKit
 
-class ViewController: UIViewController {
 
-    @IBOutlet weak var lebel: UILabel!
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view.
-    }
+// what is ok??
+// what is temporaryArray??
+
+
     
-//    func add(_ a: Any, _ b: Any) -> Any? {
-//        if let intA = a as? Int, let intB = b as? Int {
-//            return intA + intB
-//        } else if let floatA = a as? Float, let floatB = b as? Float {
-//            return floatA + floatB
-//        } else if let intA = a as? Int, let floatB = b as? Float {
-//            return Float(intA) + floatB
-//        } else if let floatA = a as? Float, let intB = b as? Int {
-//            return floatA + Float(intB)
-//        } else {
-//            return nil
-//        }
-//    }
-//    
-//    
-//    func multiply(_ a: Any, _ b: Any) -> Any? {
-//        if let intA = a as? Int, let intB = b as? Int {
-//            return intA * intB
-//        } else if let floatA = a as? Float, let floatB = b as? Float {
-//            return floatA * floatB
-//        } else if let intA = a as? Int, let floatB = b as? Float {
-//            return Float(intA) * floatB
-//        } else if let floatA = a as? Float, let intB = b as? Int {
-//            return floatA * Float(intB)
-//        } else {
-//            return nil
-//        }
-//    }
-//    
-//    
-//    func divide(_ a: Any, _ b: Any) -> Any? {
-//        if let intA = a as? Int, let intB = b as? Int {
-//            
-//            if intB != 0 {
-//                if intA % intB != 0{
-//                    return Float(intA)*1.0/Float(intB)*1.0
-//                }
-//                else {
-//                    return intA / intB
-//                }
-//            } else {
-//                return nil
-//            }
-//        } else if let floatA = a as? Float, let floatB = b as? Float {
-//            if floatB != 0.0 {
-//                return floatA / floatB
-//            } else {
-//                return nil
-//            }
-//        } else if let intA = a as? Int, let floatB = b as? Float {
-//            if floatB != 0.0 {
-//                return Float(intA) / floatB
-//            } else {
-//                return nil
-//            }
-//        } else if let floatA = a as? Float, let intB = b as? Int {
-//            if intB != 0 {
-//                return floatA / Float(intB)
-//            } else {
-//                return nil
-//            }
-//        } else {
-//            return nil
-//        }
-//    }
-//    
-//    func subtract(_ a: Any, _ b: Any) -> Any? {
-//        if let intA = a as? Int, let intB = b as? Int {
-//            return intA - intB
-//        } else if let floatA = a as? Float, let floatB = b as? Float {
-//            return floatA - floatB
-//        } else if let intA = a as? Int, let floatB = b as? Float {
-//            return Float(intA) - floatB
-//        } else if let floatA = a as? Float, let intB = b as? Int {
-//            return floatA - Float(intB)
-//        } else {
-//            return nil
-//        }
-//    }
-    
-    
-    
-    var gloabalVal : [Float] = []
-    var ok : Int = 0
-    var currentNumber : String = ""
-    @IBAction func btn(_ sender: UIButton) {
-        if okk == 1 {
+    class ViewController: UIViewController {
+        var temporayArrayForStoringOpearand : [Float] = []
+        var operationSelectorFlag : Int = 0
+        var currentNumber : String = ""
+        var afterEqualFlag : Int = 0
+        
+        // rename
+        @IBOutlet weak var displayLebel: UILabel!
+        
+        override func viewDidLoad() {
+            super.viewDidLoad()
+            // Do any additional setup after loading the view.
+        }
+        
+        @IBAction func digitButtonPressed(_ sender: UIButton) {
+            if afterEqualFlag == 1 {
+                currentNumber = ""
+                temporayArrayForStoringOpearand.removeAll()
+                operationSelectorFlag = 0 ;
+            }
+            let text = sender.titleLabel?.text
+            if let charecterPressd = text{
+                currentNumber.append(charecterPressd)
+                displayLebel.text = currentNumber
+            }
+        }
+        // reset function for resetting all
+        func resetAll(){
+            displayLebel.text = ""
             currentNumber = ""
-            gloabalVal.removeAll()
-            ok = 0 ;
+            operationSelectorFlag = 0 ;
+            temporayArrayForStoringOpearand.removeAll()
+            afterEqualFlag = 0 ;
         }
-        let text = sender.titleLabel?.text
-        if let vl = text{
-            print(vl)
+        //getting operationvalue
+        func gettingOperationValue(operationSelectorFlag : Int , operandOne : Float , operandTwo : Float , temporayArrayForStoringValue : [Float]) -> Float{
+            var value : Float = 0.0
             
-            currentNumber.append(vl)
-            lebel.text = currentNumber
+            switch operationSelectorFlag{
+            case 1: value = operandOne + operandTwo
+            case 2: value = operandOne - operandTwo
+            case 3: value = operandOne * operandTwo
+            default: value = operandOne / operandTwo
+            }
+            
+            return value
         }
-    }
-    
- 
-    
-    @IBAction func clearDisplay(_ sender: Any) {
-        lebel.text = ""
-        currentNumber = ""
-        ok = 0 ;
-        gloabalVal.removeAll()
-        okk = 0 ;
-    }
-    
-    var okk : Int = 0 ;
-    @IBAction func operationPressed(_ sender: UIButton) {
-        print("khanmahedi")
-        let text = sender.titleLabel?.text
- 
-        if let digit = text{
-     
-            print(digit)
-            var num : Float = 0.0
+        // getting selector flag
+        func gettingSelectorFlag(operationPress : String , lengthOfTempArray : Int , operationSelectorFlag : Int) -> Int{
+            switch (operationPress, lengthOfTempArray > 0){
+            case ("+", true): return 1
+            case ("-", true): return 2
+            case ("X", true): return 3
+            case ("/", true): return 4
+            default: return operationSelectorFlag
+            }
+        }
+        
+        @IBAction func clearDisplay(_ sender: Any) {
+            // make a method
+           resetAll()
+        }
+        
+        
+        @IBAction func operationPressed(_ sender: UIButton) {
+            guard let operationPress = sender.titleLabel?.text else {return}
             
-//                for i in 0..<currentNumber.count {
-//                    let index = currentNumber.index(currentNumber.startIndex, offsetBy: i)
-//                    let value : Character = currentNumber[index]
-//                    
-//                    if let vl = Int(String (value)){
-//                        num = num*10 + vl ;
-//                        
-//                    }else{
-//                        
-//                    }
-//                }
-            var len : Int = 0
-      
-
-             if let fVal = Float(currentNumber){
-                    num = fVal
-                }
-              
-            
-            
-            print(num)
-            gloabalVal.append(num)
-            print(gloabalVal.count)
-            if digit == "+" && gloabalVal.count > 0{
-                ok = 1
+            var inputValue : Float = 0.0
+            if let floatValue = Float(currentNumber){
+                inputValue = floatValue
             }
             
-            if digit == "-" && gloabalVal.count > 0 {
-                ok = 2 ;
-            }
             
-            if digit ==  "X" && gloabalVal.count > 0{
-                ok = 3 ;
-            }
-            print("dig \(digit)")
-            if digit == "/" && gloabalVal.count > 0 {
-                ok = 4
-            }
-            okk = 0 ;
-            print("yes \(ok)")
+            temporayArrayForStoringOpearand.append(inputValue)
+            var lenthOfTempArray = temporayArrayForStoringOpearand.count
             
-            gloabalVal.append(num)
-            print("num \(num)")
-            var value : Float?
-            if digit == "=" && ok != 0{
-               
-                if ok == 1{
-                    value = gloabalVal[0] + num
-              
-                }
-                if ok == 2 {
-                    value = (gloabalVal[0] - num)
-                }
-                if ok == 3 {
-                    value = (gloabalVal[0]*num)
-                }
-                if ok == 4 {
-                    if num == 0.0{
-                        lebel.text = "inf"
-                        return 
-                    }
-                    value = (gloabalVal[0]/num)
-                  
-                }
+            operationSelectorFlag = gettingSelectorFlag(operationPress: operationPress, lengthOfTempArray: lenthOfTempArray, operationSelectorFlag: operationSelectorFlag)
+            
+            afterEqualFlag = 0 ;
+            temporayArrayForStoringOpearand.append(inputValue)
+            // need to remove
+            var finalValueAfterOperation : Float
+            if operationPress == "=" && operationSelectorFlag != 0{
                 
-             
-                if let vl = value{
-                    gloabalVal.removeAll()
-                    ok = 0
-                    print("here \(currentNumber)")
-                    let intValue = Int(vl)
-                    var curr : String
-                    if Float(intValue) == vl{
-                         curr  = String(describing: intValue)
-                    }
-                    else{
-                        curr = String(describing: vl)
-                    }
-                    
-                    
-                    lebel.text = curr
-                    gloabalVal.append(vl)
-                    print("array val \(gloabalVal[0])")
-                    okk = 1 ;
+                if inputValue == 0.0{
+                    displayLebel.text = "inf"
+                    resetAll()
+                    return
                 }
-                    
-                   
-                   
+                finalValueAfterOperation = gettingOperationValue(operationSelectorFlag: operationSelectorFlag, operandOne: temporayArrayForStoringOpearand[0], operandTwo: inputValue, temporayArrayForStoringValue: temporayArrayForStoringOpearand)
                 
-                
+                var finalOutput = finalValueAfterOperation
+                    temporayArrayForStoringOpearand.removeAll()
+                    operationSelectorFlag = 0
+                    let intValue = Int(finalValueAfterOperation)
+                    displayLebel.text = Float(intValue) == finalValueAfterOperation ? String(describing: intValue) : String(describing: finalValueAfterOperation)
+                    temporayArrayForStoringOpearand.append(finalValueAfterOperation)
+                    afterEqualFlag = 1 ;
             }
             currentNumber = ""
         }
+        
     }
-    
-}
 
