@@ -15,89 +15,89 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-    func add(_ a: Any, _ b: Any) -> Any? {
-        if let intA = a as? Int, let intB = b as? Int {
-            return intA + intB
-        } else if let floatA = a as? Float, let floatB = b as? Float {
-            return floatA + floatB
-        } else if let intA = a as? Int, let floatB = b as? Float {
-            return Float(intA) + floatB
-        } else if let floatA = a as? Float, let intB = b as? Int {
-            return floatA + Float(intB)
-        } else {
-            return nil
-        }
-    }
+//    func add(_ a: Any, _ b: Any) -> Any? {
+//        if let intA = a as? Int, let intB = b as? Int {
+//            return intA + intB
+//        } else if let floatA = a as? Float, let floatB = b as? Float {
+//            return floatA + floatB
+//        } else if let intA = a as? Int, let floatB = b as? Float {
+//            return Float(intA) + floatB
+//        } else if let floatA = a as? Float, let intB = b as? Int {
+//            return floatA + Float(intB)
+//        } else {
+//            return nil
+//        }
+//    }
+//    
+//    
+//    func multiply(_ a: Any, _ b: Any) -> Any? {
+//        if let intA = a as? Int, let intB = b as? Int {
+//            return intA * intB
+//        } else if let floatA = a as? Float, let floatB = b as? Float {
+//            return floatA * floatB
+//        } else if let intA = a as? Int, let floatB = b as? Float {
+//            return Float(intA) * floatB
+//        } else if let floatA = a as? Float, let intB = b as? Int {
+//            return floatA * Float(intB)
+//        } else {
+//            return nil
+//        }
+//    }
+//    
+//    
+//    func divide(_ a: Any, _ b: Any) -> Any? {
+//        if let intA = a as? Int, let intB = b as? Int {
+//            
+//            if intB != 0 {
+//                if intA % intB != 0{
+//                    return Float(intA)*1.0/Float(intB)*1.0
+//                }
+//                else {
+//                    return intA / intB
+//                }
+//            } else {
+//                return nil
+//            }
+//        } else if let floatA = a as? Float, let floatB = b as? Float {
+//            if floatB != 0.0 {
+//                return floatA / floatB
+//            } else {
+//                return nil
+//            }
+//        } else if let intA = a as? Int, let floatB = b as? Float {
+//            if floatB != 0.0 {
+//                return Float(intA) / floatB
+//            } else {
+//                return nil
+//            }
+//        } else if let floatA = a as? Float, let intB = b as? Int {
+//            if intB != 0 {
+//                return floatA / Float(intB)
+//            } else {
+//                return nil
+//            }
+//        } else {
+//            return nil
+//        }
+//    }
+//    
+//    func subtract(_ a: Any, _ b: Any) -> Any? {
+//        if let intA = a as? Int, let intB = b as? Int {
+//            return intA - intB
+//        } else if let floatA = a as? Float, let floatB = b as? Float {
+//            return floatA - floatB
+//        } else if let intA = a as? Int, let floatB = b as? Float {
+//            return Float(intA) - floatB
+//        } else if let floatA = a as? Float, let intB = b as? Int {
+//            return floatA - Float(intB)
+//        } else {
+//            return nil
+//        }
+//    }
     
     
-    func multiply(_ a: Any, _ b: Any) -> Any? {
-        if let intA = a as? Int, let intB = b as? Int {
-            return intA * intB
-        } else if let floatA = a as? Float, let floatB = b as? Float {
-            return floatA * floatB
-        } else if let intA = a as? Int, let floatB = b as? Float {
-            return Float(intA) * floatB
-        } else if let floatA = a as? Float, let intB = b as? Int {
-            return floatA * Float(intB)
-        } else {
-            return nil
-        }
-    }
     
-    
-    func divide(_ a: Any, _ b: Any) -> Any? {
-        if let intA = a as? Int, let intB = b as? Int {
-            
-            if intB != 0 {
-                if intA % intB != 0{
-                    return Float(intA)*1.0/Float(intB)*1.0
-                }
-                else {
-                    return intA / intB
-                }
-            } else {
-                return nil
-            }
-        } else if let floatA = a as? Float, let floatB = b as? Float {
-            if floatB != 0.0 {
-                return floatA / floatB
-            } else {
-                return nil
-            }
-        } else if let intA = a as? Int, let floatB = b as? Float {
-            if floatB != 0.0 {
-                return Float(intA) / floatB
-            } else {
-                return nil
-            }
-        } else if let floatA = a as? Float, let intB = b as? Int {
-            if intB != 0 {
-                return floatA / Float(intB)
-            } else {
-                return nil
-            }
-        } else {
-            return nil
-        }
-    }
-    
-    func subtract(_ a: Any, _ b: Any) -> Any? {
-        if let intA = a as? Int, let intB = b as? Int {
-            return intA - intB
-        } else if let floatA = a as? Float, let floatB = b as? Float {
-            return floatA - floatB
-        } else if let intA = a as? Int, let floatB = b as? Float {
-            return Float(intA) - floatB
-        } else if let floatA = a as? Float, let intB = b as? Int {
-            return floatA - Float(intB)
-        } else {
-            return nil
-        }
-    }
-    
-    
-    
-    var gloabalVal : [Any] = []
+    var gloabalVal : [Float] = []
     var ok : Int = 0
     var currentNumber : String = ""
     @IBAction func btn(_ sender: UIButton) {
@@ -122,6 +122,7 @@ class ViewController: UIViewController {
         currentNumber = ""
         ok = 0 ;
         gloabalVal.removeAll()
+        okk = 0 ;
     }
     
     var okk : Int = 0 ;
@@ -132,7 +133,7 @@ class ViewController: UIViewController {
         if let digit = text{
      
             print(digit)
-            var num : Any = 0
+            var num : Float = 0.0
             
 //                for i in 0..<currentNumber.count {
 //                    let index = currentNumber.index(currentNumber.startIndex, offsetBy: i)
@@ -146,24 +147,13 @@ class ViewController: UIViewController {
 //                    }
 //                }
             var len : Int = 0
-            for i in 0..<currentNumber.count {
-                let index = currentNumber.index(currentNumber.startIndex, offsetBy: i)
-                if currentNumber[index] == "." {
-                    len = i+1 ;
-                }
-            }
-            
-            if let val = Int(currentNumber){
-                num = val
-            }
-            else {
-                if let fVal = Float(currentNumber){
+      
+
+             if let fVal = Float(currentNumber){
                     num = fVal
                 }
-                else{
-                    
-                }
-            }
+              
+            
             
             print(num)
             gloabalVal.append(num)
@@ -188,24 +178,26 @@ class ViewController: UIViewController {
             
             gloabalVal.append(num)
             print("num \(num)")
-            var value : Any?
+            var value : Float?
             if digit == "=" && ok != 0{
                
                 if ok == 1{
-                    value = add(gloabalVal[0], num)
-                    print("value \(value) + \(gloabalVal[0])")
+                    value = gloabalVal[0] + num
+              
                 }
                 if ok == 2 {
-                    value = subtract(gloabalVal[0], num)
+                    value = (gloabalVal[0] - num)
                 }
                 if ok == 3 {
-                    value = multiply(gloabalVal[0],num)
+                    value = (gloabalVal[0]*num)
                 }
                 if ok == 4 {
-                    print("ok \(ok)")
+                    if num == 0.0{
+                        lebel.text = "inf"
+                        return 
+                    }
+                    value = (gloabalVal[0]/num)
                   
-                    value = divide(gloabalVal[0], num)
-                    print("value \(value)")
                 }
                 
              
@@ -213,7 +205,15 @@ class ViewController: UIViewController {
                     gloabalVal.removeAll()
                     ok = 0
                     print("here \(currentNumber)")
-                    var curr  = String(describing: vl)
+                    let intValue = Int(vl)
+                    var curr : String
+                    if Float(intValue) == vl{
+                         curr  = String(describing: intValue)
+                    }
+                    else{
+                        curr = String(describing: vl)
+                    }
+                    
                     
                     lebel.text = curr
                     gloabalVal.append(vl)
