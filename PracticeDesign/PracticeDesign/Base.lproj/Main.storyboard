@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_0" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Inter-VariableFont_slnt,wght.ttf">
+            <string>Inter-Regular_SemiBold</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="PracticeDesign" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="02D-tO-rj9">
+                                <rect key="frame" x="0.0" y="20" width="320" height="173.5"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J2o-32-98d">
+                                        <rect key="frame" x="262" y="24.5" width="52" height="29"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Back">
+                                            <fontDescription key="titleFontDescription" name="Inter-Regular" family="Inter" pointSize="12"/>
+                                        </buttonConfiguration>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LQX-4U-x8h">
+                                        <rect key="frame" x="34.5" y="57.5" width="251.5" height="58.5"/>
+                                        <string key="text">Turn Your Phone into
+a Smart TV Controller</string>
+                                        <fontDescription key="fontDescription" name="Inter-Regular_SemiBold" family="Inter" pointSize="24"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.18431372549019609" green="0.19607843137254902" blue="0.21568627450980393" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="J2o-32-98d" firstAttribute="centerX" secondItem="02D-tO-rj9" secondAttribute="centerX" multiplier="1.8" id="31I-bm-KJe"/>
+                                    <constraint firstItem="LQX-4U-x8h" firstAttribute="centerX" secondItem="02D-tO-rj9" secondAttribute="centerX" id="A4t-vr-0tz"/>
+                                    <constraint firstItem="J2o-32-98d" firstAttribute="centerY" secondItem="02D-tO-rj9" secondAttribute="centerY" multiplier="0.45" id="CdW-67-czh"/>
+                                    <constraint firstItem="LQX-4U-x8h" firstAttribute="centerY" secondItem="02D-tO-rj9" secondAttribute="centerY" id="Cnr-Uv-i5h"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7MV-lw-EVX">
+                                <rect key="frame" x="22" y="211.5" width="270" height="588.5"/>
+                                <string key="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Integer vitae justo eget magna. Vel elit scelerisque mauris pellentesque. Morbi tristique senectus et netus et malesuada fames. A pellentesque sit amet porttitor eget. Risus ultricies tristique nulla aliquet enim tortor at auctor. Facilisis gravida neque convallis a cras semper auctor neque. Senectus et netus et malesuada fames ac turpis egestas. Metus dictum at tempor commodo ullamcorper a. Et netus et malesuada fames ac. Quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus. Euismod lacinia at quis risus sed. Enim nulla aliquet porttitor lacus luctus accumsan tortor posuere. Viverra vitae idsfjdsokf; ;sjf;dskf;lsdkflkjsd;fks;djfksd;fjdsojfkdsfjdfjdkfjldksjfkljdslkfjdlksjflkdjsklfjskldfjlksdjflkjsdlkfjlkdsjflkdjslklkfsdjlkfjlksdjfkldslkfjsdlkjflkdsjkfldjsklfjs</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" red="0.11764705882352941" green="0.11764705882352941" blue="0.11764705882352941" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="02D-tO-rj9" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="BYy-Q8-EH9"/>
+                            <constraint firstItem="02D-tO-rj9" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="Fjs-B6-Jf0"/>
+                            <constraint firstItem="02D-tO-rj9" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="274/896" id="Kpb-wu-aAM"/>
+                            <constraint firstItem="02D-tO-rj9" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="agA-mU-ONE"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="02D-tO-rj9" secondAttribute="trailing" id="c6n-eK-hiZ"/>
+                            <constraint firstItem="7MV-lw-EVX" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="22" id="f5G-TL-zro"/>
+                            <constraint firstItem="7MV-lw-EVX" firstAttribute="top" secondItem="02D-tO-rj9" secondAttribute="bottom" constant="18" id="qTV-9V-0bY"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="7MV-lw-EVX" secondAttribute="trailing" constant="28" id="rW7-8k-ySs"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="93.925233644859802" y="0.0"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="Ux4-3O-1eJ">
+            <objects>
+                <viewController id="kym-Lf-uB8" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="GBM-rv-jwq">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vl3-i6-Jkr">
+                                <rect key="frame" x="0.0" y="20" width="320" height="173.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5EV-w6-0XH">
+                                        <rect key="frame" x="37.5" y="58" width="247" height="57.5"/>
+                                        <string key="text">Turn Your Phone into
+a Smart TV Controller</string>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="24"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CPE-o5-Kv3">
+                                        <rect key="frame" x="250" y="16" width="62" height="35"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Back"/>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" name="topViewBG"/>
+                                <constraints>
+                                    <constraint firstItem="CPE-o5-Kv3" firstAttribute="top" secondItem="Vl3-i6-Jkr" secondAttribute="top" constant="16" id="0GN-Fo-AQA"/>
+                                    <constraint firstItem="5EV-w6-0XH" firstAttribute="centerX" secondItem="Vl3-i6-Jkr" secondAttribute="centerX" constant="1" id="9fC-ja-n68"/>
+                                    <constraint firstItem="5EV-w6-0XH" firstAttribute="centerY" secondItem="Vl3-i6-Jkr" secondAttribute="centerY" id="GZn-Gu-eNq"/>
+                                    <constraint firstAttribute="trailing" secondItem="CPE-o5-Kv3" secondAttribute="trailing" constant="8" id="JcD-BF-rKh"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UOc-Qs-fXl">
+                                <rect key="frame" x="16" y="209.5" width="288" height="367.5"/>
+                                <mutableString key="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Integer vitae justo eget magna. Vel elit scelerisque mauris pellentesque. Morbi tristique senectus et netus et malesuada fames. A pellentesque sit amet porttitor eget. Risus ultricies tristique nulla aliquet enim tortor at auctor. Facilisis gravida neque convallis a cras semper auctor neque. Senectus et netus et malesuada fames ac turpis egestas. Metus dictum at tempor commodo ullamcorper a. Et netus et malesuada fames ac. Quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus. Euismod lacinia at quis risus sed. Enim nulla aliquet porttitor lacus luctus accumsan tortor posuere. Viverra vitae idsfjdsokf; ;sjf;dskf;lsdkflkjsd;fks;djfksd;fjdsojfkdsfjdfjdkfjldksjfkljdslkfjdlksjflkdjsklfjskldfjlksdjflkjsdlkfjlkdsjflkdjslklkfsdjlkfjlksdjfkldslkfjsdlkjflkdsjkfldjsklfjs Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Integer vitae justo eget magna. Vel elit scelerisque mauris pellentesque. Morbi tristique senectus et netus et malesuada fames. A pellentesque sit amet porttitor eget. Risus ultricies tristique nulla aliquet enim tortor at auctor. Facilisis gravida neque convallis a cras semper auctor neque. Senectus et netus et malesuada fames ac turpis egestas. Metus dictum at tempor commodo ullamcorper a. Et netus et malesuada fames ac. Quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus. Euismod lacinia at quis risus sed. Enim nulla aliquet porttitor lacus luctus accumsan tortor posuere. Viverra vitae idsfjdsokf; ;sjf;dskf;lsdkflkjsd;fks;djfksd;fjdsojfkdsfjdfjdkfjldksjfkljdslkfjdlksjflkdjsklfjskldfjlksdjflkjsdlkfjlkdsjflkdjslklkfsdjlkfjlksdjfkldslkfjsdlkjflkdsjkfldjsklfjs</mutableString>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Yb-K6-ruz"/>
+                        <color key="backgroundColor" name="bg"/>
+                        <constraints>
+                            <constraint firstItem="Vl3-i6-Jkr" firstAttribute="height" secondItem="GBM-rv-jwq" secondAttribute="height" multiplier="274/896" id="5XV-6p-QBI"/>
+                            <constraint firstItem="6Yb-K6-ruz" firstAttribute="trailing" secondItem="Vl3-i6-Jkr" secondAttribute="trailing" id="7Ub-nR-6De"/>
+                            <constraint firstItem="6Yb-K6-ruz" firstAttribute="trailing" secondItem="UOc-Qs-fXl" secondAttribute="trailing" constant="16" id="9b3-wg-T5r"/>
+                            <constraint firstItem="Vl3-i6-Jkr" firstAttribute="top" secondItem="6Yb-K6-ruz" secondAttribute="top" id="OEZ-UH-gv6"/>
+                            <constraint firstItem="Vl3-i6-Jkr" firstAttribute="leading" secondItem="6Yb-K6-ruz" secondAttribute="leading" id="ZdX-O9-xTR"/>
+                            <constraint firstItem="UOc-Qs-fXl" firstAttribute="bottom" secondItem="6Yb-K6-ruz" secondAttribute="bottom" constant="9" id="gZx-UE-h7L"/>
+                            <constraint firstItem="UOc-Qs-fXl" firstAttribute="leading" secondItem="6Yb-K6-ruz" secondAttribute="leading" constant="16" id="p9I-Uw-iHe"/>
+                            <constraint firstItem="UOc-Qs-fXl" firstAttribute="top" secondItem="Vl3-i6-Jkr" secondAttribute="bottom" constant="16" id="udP-8l-oEZ"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wu7-25-gbQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1061" y="17"/>
+        </scene>
+    </scenes>
+    <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+    <resources>
+        <namedColor name="bg">
+            <color red="0.11764705882352941" green="0.11764705882352941" blue="0.11764705882352941" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="topViewBG">
+            <color red="0.18431372549019609" green="0.19607843137254902" blue="0.21568627450980393" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>
