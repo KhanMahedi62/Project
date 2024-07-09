@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import Kingfisher
 class ViewController: UIViewController, UICollectionViewDelegate {
     
     @IBOutlet weak var collecTionView : UICollectionView!
@@ -127,8 +127,11 @@ extension ViewController : UICollectionViewDataSource{
             cell.ratingLabel.text = "\( modelUser.rating?.rate ?? 0)(\( modelUser.rating?.count ?? 0))"
             
             if let imageUrlString = modelUser.image{
-                cell.imageViewCell.imageDownloading(imageUrlString)
+                if let url = URL(string: modelUser.image!){
+                    cell.imageViewCell.kf.setImage(with: url)
+                }
             }
+            
             
         }
         
@@ -162,26 +165,28 @@ extension UIImageView{
         }
         UIImageView.disPatchQueue.async {
             if let url = URL(string: imageUrlString) {
-                let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
-                    if let error = error {
-                        print("Error fetching image: \(error)")
-                        return
-                    }
-                    
-                    guard let data = data else {
-                        print("No image data received")
-                        return
-                    }
-                    if let image = UIImage(data: data) {
-                        DispatchQueue.main.async {
-                            self.image = image
-                            UIImageView.imageToCache.setObject(image, forKey: NSString(string: imageUrlString))
-                        }
-                    } else {
-                        print("Unable to create image from data")
-                    }
-                }
-                task.resume()
+//                let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+//                    if let error = error {
+//                        print("Error fetching image: \(error)")
+//                        return
+//                    }
+//                    
+//                    guard let data = data else {
+//                        print("No image data received")
+//                        return
+//                    }
+//                    if let image = UIImage(data: data) {
+//                        DispatchQueue.main.async {
+//                            self.image = image
+//                            UIImageView.imageToCache.setObject(image, forKey: NSString(string: imageUrlString))
+//                        }
+//                    } else {
+//                        print("Unable to create image from data")
+//                    }
+//                }
+//                task.resume()
+                
+                
             }
             
         }
