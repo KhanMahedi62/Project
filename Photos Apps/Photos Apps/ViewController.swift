@@ -11,10 +11,15 @@
 import UIKit
 import Photos
 import XLPagerTabStrip
+
+protocol initialization{
+    func initialization(photosInAlbums : [[PHAsset]], albumNames : [String])
+}
+
 class ViewController: UIViewController{
     
  
-
+    var initializationDelegate : initialization?
     @IBOutlet weak var collectionView: UICollectionView!
     var image = [PHAsset]()
     let imageManager = PHCachingImageManager()
@@ -23,9 +28,7 @@ class ViewController: UIViewController{
     var photosInAlbums = [[PHAsset]]()
     var imageCaching = NSCache<NSString, UIImage>()
     func requestAuthorization(){
-        print("mahedi")
             PHPhotoLibrary.requestAuthorization { [weak self]  status in
-                print(status)
                 if status == .authorized{
                     self?.fetchAlbums()
                 }
@@ -37,17 +40,14 @@ class ViewController: UIViewController{
     func fetchAlbums() {
            let fetchOptions = PHFetchOptions()
         fetchOptions.predicate = NSPredicate(format: "estimatedAssetCount > 0")
-
         let albums = PHAssetCollection.fetchAssetCollections(with: .album, subtype: .any, options: fetchOptions)
         let smartAlbums = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .any, options: nil)
-        print("Smart Album size \(smartAlbums.count)")
         smartAlbums.enumerateObjects{ (collection, _, _) in
                 self.albums.append(collection)
         }
            albums.enumerateObjects { (collection, _, _) in
                self.albums.append(collection)
            }
-        print("album size \(albums.count)")
 
            self.fetchPhotosForAlbums()
        }
@@ -77,19 +77,17 @@ class ViewController: UIViewController{
      }
  
 
-
+    func configureForParentViewController(){
+//            requestAuthorization()
+    }
     
     override func viewDidLoad() {
-        print("mahedi khan mahedi khan mahedi")
         super.viewDidLoad()
         // Do any additional setup after loading the view.
        
         collectionView.delegate = self
         collectionView.dataSource = self
-        requestAuthorization()
-    }
-
-
+        requestAuthorization()    }
 }
 
 extension ViewController: UICollectionViewDataSource {
@@ -105,11 +103,9 @@ extension ViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        print("hi this is mahedi ")
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! imageCell
         
         let asset = (photosInAlbums[indexPath.item].count > 0) ? photosInAlbums[indexPath.item][0] : nil
-        print("mahedi khan")
         // Request image for the asset
         let targetSize = CGSize(width: 300, height: 300) // Adjust the size as needed
         cell.titleLabel.text = self.albumNames[indexPath.item]
@@ -144,11 +140,8 @@ extension ViewController: UICollectionViewDataSource {
 extension ViewController : UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        //let bounds = collectionView.bounds
         let widthVal = self.view.frame.width
         let cellsize = widthVal/2
-        print("widthValue")
-        print(widthVal)
         return CGSize(width: cellsize-10   , height: cellsize-10)
     }
     
@@ -157,7 +150,7 @@ extension ViewController : UICollectionViewDelegateFlowLayout {
 extension ViewController : UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let disPlayView = self.storyboard?.instantiateViewController(identifier: "DisplayViewController") as! DisplayViewController
-        disPlayView.configure(image: photosInAlbums[indexPath.item])
+//        disPlayView.configure(image: photosInAlbums[indexPath.item])
         navigationController?.pushViewController(disPlayView, animated: true)
 //        present(disPlayView, animated: true)
     }
@@ -172,6 +165,7 @@ extension ViewController : IndicatorInfoProvider{
     
     
 }
+
 
 
 

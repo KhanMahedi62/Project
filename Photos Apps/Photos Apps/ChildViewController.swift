@@ -8,11 +8,17 @@
 import UIKit
 import XLPagerTabStrip
 class ChildViewController: UIViewController {
-
+    var activityIndicator: UIActivityIndicatorView!
+    var itemInfo : IndicatorInfo?
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        view.backgroundColor = .black
+        activityIndicator = UIActivityIndicatorView(style: .large)
+           activityIndicator.color = .white
+           activityIndicator.hidesWhenStopped = true
+           activityIndicator.center = view.center
+           view.addSubview(activityIndicator)
+         activityIndicator.startAnimating()
     }
     
 
@@ -30,7 +36,7 @@ class ChildViewController: UIViewController {
 
 extension ChildViewController : IndicatorInfoProvider{
     public func indicatorInfo(for pagerTabStripController: XLPagerTabStrip.PagerTabStripViewController) -> XLPagerTabStrip.IndicatorInfo {
-        return IndicatorInfo(title: "Photos")
+        return IndicatorInfo(title: "Photo Apps")
     }
     
     

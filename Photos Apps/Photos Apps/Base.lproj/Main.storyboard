@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="9Oc-5h-ifA">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BKC-rm-C7m">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -109,6 +109,37 @@
             </objects>
             <point key="canvasLocation" x="9414.5038167938928" y="-16.197183098591552"/>
         </scene>
+        <!--Home View Controller-->
+        <scene sceneID="0kf-Sd-N7z">
+            <objects>
+                <viewController storyboardIdentifier="HomeViewController" id="mUO-LP-pX1" customClass="HomeViewController" customModule="Photos_Apps" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="uWA-IP-cF3">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SrZ-sT-46f">
+                                <rect key="frame" x="157.66666666666666" y="408.66666666666669" width="78" height="35"/>
+                                <color key="backgroundColor" red="0.24313725489999999" green="0.73725490199999999" blue="0.52941176469999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Photos"/>
+                                <connections>
+                                    <action selector="photosButtonAction:" destination="mUO-LP-pX1" eventType="touchUpInside" id="ufm-oV-kwA"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="IAV-86-kEH"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="SrZ-sT-46f" firstAttribute="centerX" secondItem="uWA-IP-cF3" secondAttribute="centerX" id="JWn-Fx-uek"/>
+                            <constraint firstItem="SrZ-sT-46f" firstAttribute="centerY" secondItem="uWA-IP-cF3" secondAttribute="centerY" id="Jim-My-82J"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="q7x-el-Eq2"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TyQ-as-HPu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="13167.175572519083" y="5.6338028169014089"/>
+        </scene>
         <!--Display View Controller-->
         <scene sceneID="1I9-Lc-2D1">
             <objects>
@@ -137,6 +168,7 @@
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pLc-z4-GN2">
                                                     <rect key="frame" x="0.0" y="0.0" width="261" height="267"/>
                                                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <gestureRecognizers/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tc6-XW-3rD">
                                                     <rect key="frame" x="210.66666666666666" y="238" width="35.333333333333343" height="17"/>
@@ -222,10 +254,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lNi-hV-GmN">
-                                <rect key="frame" x="0.0" y="167" width="393" height="651"/>
+                                <rect key="frame" x="0.0" y="123" width="393" height="695"/>
                             </scrollView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="nJH-lS-GOV" customClass="ButtonBarView" customModule="XLPagerTabStrip">
-                                <rect key="frame" x="0.0" y="103" width="393" height="64"/>
+                                <rect key="frame" x="0.0" y="59" width="393" height="64"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="64" id="7p4-dv-Plr"/>
@@ -268,22 +300,22 @@
             <point key="canvasLocation" x="8406.8702290076326" y="-16.197183098591552"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="e1V-5A-XqV">
+        <scene sceneID="JzL-Pr-Guj">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="9Oc-5h-ifA" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="BKC-rm-C7m" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Jsu-t6-RhA">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ofO-Rk-JIj">
                         <rect key="frame" x="0.0" y="59" width="393" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="sK7-Kh-KZS" kind="relationship" relationship="rootViewController" id="Ris-CZ-uH8"/>
+                        <segue destination="mUO-LP-pX1" kind="relationship" relationship="rootViewController" id="wbh-xa-Qlc"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="XMj-4D-6aw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9tv-OT-o8e" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7480.1526717557244" y="-16.197183098591552"/>
+            <point key="canvasLocation" x="12240.458015267175" y="5.6338028169014089"/>
         </scene>
     </scenes>
     <resources>

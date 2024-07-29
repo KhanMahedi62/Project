@@ -12,6 +12,7 @@
 		CE3394B52C46794B00194727 /* ParentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3394B42C46794B00194727 /* ParentViewController.swift */; };
 		CE3394B72C4686C200194727 /* ChildViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3394B62C4686C200194727 /* ChildViewController.swift */; };
 		CE3394B92C46909F00194727 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3394B82C46909F00194727 /* NavigationController.swift */; };
+		CE59E3BB2C5601D8009658BB /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE59E3BA2C5601D8009658BB /* HomeViewController.swift */; };
 		CE81B5EC2C4395360016C331 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE81B5EB2C4395360016C331 /* AppDelegate.swift */; };
 		CE81B5EE2C4395360016C331 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE81B5ED2C4395360016C331 /* SceneDelegate.swift */; };
 		CE81B5F02C4395360016C331 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE81B5EF2C4395360016C331 /* ViewController.swift */; };
@@ -28,6 +29,7 @@
 		CE3394B42C46794B00194727 /* ParentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentViewController.swift; sourceTree = "<group>"; };
 		CE3394B62C4686C200194727 /* ChildViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildViewController.swift; sourceTree = "<group>"; };
 		CE3394B82C46909F00194727 /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
+		CE59E3BA2C5601D8009658BB /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		CE81B5E82C4395360016C331 /* Photos Apps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Photos Apps.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE81B5EB2C4395360016C331 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CE81B5ED2C4395360016C331 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -76,6 +78,7 @@
 				CE81B5ED2C4395360016C331 /* SceneDelegate.swift */,
 				CE81B5EF2C4395360016C331 /* ViewController.swift */,
 				CE81B5F12C4395360016C331 /* Main.storyboard */,
+				CE59E3BA2C5601D8009658BB /* HomeViewController.swift */,
 				CE3394B82C46909F00194727 /* NavigationController.swift */,
 				CE3394B62C4686C200194727 /* ChildViewController.swift */,
 				CE3394B42C46794B00194727 /* ParentViewController.swift */,
@@ -174,6 +177,7 @@
 				CE81B5EC2C4395360016C331 /* AppDelegate.swift in Sources */,
 				CE81B6002C439C190016C331 /* imageCell.swift in Sources */,
 				CE81B5EE2C4395360016C331 /* SceneDelegate.swift in Sources */,
+				CE59E3BB2C5601D8009658BB /* HomeViewController.swift in Sources */,
 				CE3394B92C46909F00194727 /* NavigationController.swift in Sources */,
 				CE3394B52C46794B00194727 /* ParentViewController.swift in Sources */,
 				CE81B6062C43E6920016C331 /* DisplayCollectionViewCell.swift in Sources */,
