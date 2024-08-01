@@ -7,47 +7,48 @@
 
 import UIKit
 import Photos
-class HomeViewController: UIViewController {
-    var firstTimeCallOfParentViewFlag = false
-    var trackPhotoalbums: [Int: Bool] = [:]
-    var image = [PHAsset]()
-    let imageManager = PHCachingImageManager()
-    var albums = [PHAssetCollection]()
+
+struct albumMetaData{
     var albumNames = [String]()
     var photosInAlbums = [[PHAsset]]()
-    var childViewController = [UIViewController]()
+}
+
+class HomeViewController: UIViewController {
+    var firstTimeCallOfParentViewFlag = false
+    var metaData = albumMetaData()
     var totalAlbums = 0
-    
     func requestAuthorization(){
         PHPhotoLibrary.requestAuthorization { [weak self]  status in
             if status == .authorized{
                 self?.fetchAlbums()
             }
         }
+        
     }
     
-    
+    // fetching all albums
     func fetchAlbums() {
+        var albums = [PHAssetCollection]()
         let fetchOptions = PHFetchOptions()
         fetchOptions.predicate = NSPredicate(format: "estimatedAssetCount > 0")
-        let albums = PHAssetCollection.fetchAssetCollections(with: .album, subtype: .any, options: fetchOptions)
+        let userAlbums = PHAssetCollection.fetchAssetCollections(with: .album, subtype: .any, options: fetchOptions)
         let smartAlbums = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .any, options: nil)
-        totalAlbums = smartAlbums.count + albums.count
+        totalAlbums = smartAlbums.count + userAlbums.count
         smartAlbums.enumerateObjects{ (collection, _, _) in
-            self.albums.append(collection)
+            albums.append(collection)
         }
-        albums.enumerateObjects { (collection, _, _) in
-            self.albums.append(collection)
+        userAlbums.enumerateObjects { (collection, _, _) in
+            albums.append(collection)
         }
         
-        self.fetchPhotosForAlbums()
+        self.fetchPhotosForAlbums(albums : albums)
     }
     
     
-    
-    func fetchPhotosForAlbums() {
+    // fetching photos for all albums
+    func fetchPhotosForAlbums(albums: [PHAssetCollection]) {
         
-        for album in self.albums {
+        for album in albums {
             var photos = [PHAsset]()
             let options = PHFetchOptions()
             options.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
@@ -55,20 +56,22 @@ class HomeViewController: UIViewController {
             assets.enumerateObjects { (asset, _, _) in
                 photos.append(asset)
             }
-                if photos.count > 0{
-                    self.albumNames.append(album.localizedTitle ?? "Untitled Album")
-                    self.photosInAlbums.append(photos)
-                }
-                else {
-                    self.totalAlbums = self.totalAlbums - 1
-                }
+            if photos.count > 0{
+                self.metaData.albumNames.append(album.localizedTitle ?? "Untitled Album")
+                self.metaData.photosInAlbums.append(photos)
+            }
+            else {
+                self.totalAlbums = self.totalAlbums - 1
+            }
             DispatchQueue.main.async{
-                if self.photosInAlbums.count == self.totalAlbums {
+                if self.metaData.photosInAlbums.count == self.totalAlbums {
                     let parentView = self.storyboard?.instantiateViewController(identifier: "PagerTabStripViewController") as! ParentViewController
-                    parentView.configure(photoAlbums: self.photosInAlbums, albumNames: self.albumNames)
+                    parentView.configure(metaData : self.metaData)
                     self.firstTimeCallOfParentViewFlag = true
-                    self.navigationController?.pushViewController(parentView, animated: true)
+                    parentView.modalPresentationStyle = .fullScreen
+                    self.present(parentView, animated: true, completion: nil)
                 }
+                
             }
         }
     }
@@ -79,9 +82,9 @@ class HomeViewController: UIViewController {
         }
         else{
             let parentView = self.storyboard?.instantiateViewController(identifier: "PagerTabStripViewController") as! ParentViewController
-            parentView.configure(photoAlbums: self.photosInAlbums, albumNames: self.albumNames)
-            DisplayViewController.countImage = 0 
-            self.navigationController?.pushViewController(parentView, animated: true)
+            parentView.configure(metaData : self.metaData)
+            parentView.modalPresentationStyle = .fullScreen
+            self.present(parentView, animated: true, completion: nil)
         }
     }
     
@@ -90,15 +93,15 @@ class HomeViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-
+    
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destination.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }
