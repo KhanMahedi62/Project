@@ -9,11 +9,14 @@
 /* Begin PBXBuildFile section */
 		CE06913D2C58C99900256CD5 /* collectionViewSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE06913C2C58C99900256CD5 /* collectionViewSelection.swift */; };
 		CE06913F2C58D63800256CD5 /* SelectionImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE06913E2C58D63800256CD5 /* SelectionImageCell.swift */; };
+		CE1FFDCB2C636D70008EACF9 /* MediaManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1FFDCA2C636D70008EACF9 /* MediaManager.swift */; };
 		CE245C072C451307005FD639 /* DisplayImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE245C062C451307005FD639 /* DisplayImageViewController.swift */; };
 		CE3394B32C466D5900194727 /* XLPagerTabStrip in Frameworks */ = {isa = PBXBuildFile; productRef = CE3394B22C466D5900194727 /* XLPagerTabStrip */; };
 		CE3394B52C46794B00194727 /* ParentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3394B42C46794B00194727 /* ParentViewController.swift */; };
 		CE3394B72C4686C200194727 /* ChildViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3394B62C4686C200194727 /* ChildViewController.swift */; };
 		CE59E3BB2C5601D8009658BB /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE59E3BA2C5601D8009658BB /* HomeViewController.swift */; };
+		CE680EBC2C620DF500F57680 /* Gilroy-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CE680EBB2C620DF500F57680 /* Gilroy-SemiBold.ttf */; };
+		CE680EBE2C62205300F57680 /* Gilroy-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CE680EBD2C62205300F57680 /* Gilroy-Medium.ttf */; };
 		CE81B5EC2C4395360016C331 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE81B5EB2C4395360016C331 /* AppDelegate.swift */; };
 		CE81B5EE2C4395360016C331 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE81B5ED2C4395360016C331 /* SceneDelegate.swift */; };
 		CE81B5F02C4395360016C331 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE81B5EF2C4395360016C331 /* ViewController.swift */; };
@@ -25,17 +28,19 @@
 		CE81B6062C43E6920016C331 /* DisplayCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE81B6052C43E6920016C331 /* DisplayCollectionViewCell.swift */; };
 		CE9554702C5A1136004C2F2C /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE95546E2C5A1136004C2F2C /* ImageCollectionViewCell.swift */; };
 		CE9554712C5A1136004C2F2C /* ImageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE95546F2C5A1136004C2F2C /* ImageCollectionViewCell.xib */; };
-		CED8AE382C57688A0012752D /* Gilroy-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CED8AE372C57688A0012752D /* Gilroy-Bold.ttf */; };
-		CED8AE3B2C5775FC0012752D /* Gilroy-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CED8AE3A2C5775FC0012752D /* Gilroy-Medium.ttf */; };
+		CEFEDE902C61F92F00D93994 /* Gilroy-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CEFEDE8F2C61F92F00D93994 /* Gilroy-Bold.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		CE06913C2C58C99900256CD5 /* collectionViewSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = collectionViewSelection.swift; sourceTree = "<group>"; };
 		CE06913E2C58D63800256CD5 /* SelectionImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionImageCell.swift; sourceTree = "<group>"; };
+		CE1FFDCA2C636D70008EACF9 /* MediaManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaManager.swift; sourceTree = "<group>"; };
 		CE245C062C451307005FD639 /* DisplayImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayImageViewController.swift; sourceTree = "<group>"; };
 		CE3394B42C46794B00194727 /* ParentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentViewController.swift; sourceTree = "<group>"; };
 		CE3394B62C4686C200194727 /* ChildViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildViewController.swift; sourceTree = "<group>"; };
 		CE59E3BA2C5601D8009658BB /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		CE680EBB2C620DF500F57680 /* Gilroy-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gilroy-SemiBold.ttf"; sourceTree = "<group>"; };
+		CE680EBD2C62205300F57680 /* Gilroy-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gilroy-Medium.ttf"; sourceTree = "<group>"; };
 		CE81B5E82C4395360016C331 /* Photos Apps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Photos Apps.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE81B5EB2C4395360016C331 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CE81B5ED2C4395360016C331 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -49,9 +54,7 @@
 		CE81B6052C43E6920016C331 /* DisplayCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayCollectionViewCell.swift; sourceTree = "<group>"; };
 		CE95546E2C5A1136004C2F2C /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		CE95546F2C5A1136004C2F2C /* ImageCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageCollectionViewCell.xib; sourceTree = "<group>"; };
-		CED8AE372C57688A0012752D /* Gilroy-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gilroy-Bold.ttf"; sourceTree = "<group>"; };
-		CED8AE392C57728F0012752D /* Gilroy-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gilroy-SemiBold.ttf"; sourceTree = "<group>"; };
-		CED8AE3A2C5775FC0012752D /* Gilroy-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gilroy-Medium.ttf"; sourceTree = "<group>"; };
+		CEFEDE8F2C61F92F00D93994 /* Gilroy-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gilroy-Bold.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,9 +72,9 @@
 		CE81B5DF2C4395360016C331 = {
 			isa = PBXGroup;
 			children = (
-				CED8AE372C57688A0012752D /* Gilroy-Bold.ttf */,
-				CED8AE392C57728F0012752D /* Gilroy-SemiBold.ttf */,
-				CED8AE3A2C5775FC0012752D /* Gilroy-Medium.ttf */,
+				CE680EBB2C620DF500F57680 /* Gilroy-SemiBold.ttf */,
+				CE680EBD2C62205300F57680 /* Gilroy-Medium.ttf */,
+				CEFEDE8F2C61F92F00D93994 /* Gilroy-Bold.ttf */,
 				CE81B5EA2C4395360016C331 /* Photos Apps */,
 				CE81B5E92C4395360016C331 /* Products */,
 			);
@@ -94,6 +97,7 @@
 				CE81B5F12C4395360016C331 /* Main.storyboard */,
 				CE06913C2C58C99900256CD5 /* collectionViewSelection.swift */,
 				CE59E3BA2C5601D8009658BB /* HomeViewController.swift */,
+				CE1FFDCA2C636D70008EACF9 /* MediaManager.swift */,
 				CE3394B62C4686C200194727 /* ChildViewController.swift */,
 				CE3394B42C46794B00194727 /* ParentViewController.swift */,
 				CE95546E2C5A1136004C2F2C /* ImageCollectionViewCell.swift */,
@@ -175,11 +179,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE81B5F52C4395370016C331 /* Assets.xcassets in Resources */,
+				CE680EBE2C62205300F57680 /* Gilroy-Medium.ttf in Resources */,
+				CE680EBC2C620DF500F57680 /* Gilroy-SemiBold.ttf in Resources */,
 				CE81B5F82C4395370016C331 /* Base in Resources */,
-				CED8AE3B2C5775FC0012752D /* Gilroy-Medium.ttf in Resources */,
+				CEFEDE902C61F92F00D93994 /* Gilroy-Bold.ttf in Resources */,
 				CE81B5F32C4395360016C331 /* Base in Resources */,
 				CE9554712C5A1136004C2F2C /* ImageCollectionViewCell.xib in Resources */,
-				CED8AE382C57688A0012752D /* Gilroy-Bold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -202,6 +207,7 @@
 				CE59E3BB2C5601D8009658BB /* HomeViewController.swift in Sources */,
 				CE9554702C5A1136004C2F2C /* ImageCollectionViewCell.swift in Sources */,
 				CE3394B52C46794B00194727 /* ParentViewController.swift in Sources */,
+				CE1FFDCB2C636D70008EACF9 /* MediaManager.swift in Sources */,
 				CE81B6062C43E6920016C331 /* DisplayCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

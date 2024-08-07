@@ -11,13 +11,13 @@ import AVFoundation
 import AVKit
 import XLPagerTabStrip
 
-protocol selectedImageProtocol{
+protocol SelectedImageProtocol{
     func selectedImageIndex(index : Int)
     func deselection(index : Int)
 }
 
 class DisplayViewController: UIViewController {
-    var selectedImageDelegate : selectedImageProtocol?
+    var selectedImageDelegate : SelectedImageProtocol?
     var barTitle : String?
     var cacheImage : [Int : UIImage] = [:]
     let imageManager = PHCachingImageManager()
@@ -27,6 +27,7 @@ class DisplayViewController: UIViewController {
     var selectedCountImage = 0
     
     @IBOutlet weak var viedioLabel: UILabel!
+    
     func configure(image : [PHAsset], index : Int){
         self.image = image
         if index == 0 {
@@ -39,8 +40,6 @@ class DisplayViewController: UIViewController {
     }
     
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.dataSource = self
@@ -48,31 +47,8 @@ class DisplayViewController: UIViewController {
     }
     
     
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
 }
-// for extracting video duration of a video
-extension DisplayViewController{
-    func fetchVideoDuration(for asset: PHAsset, completion: @escaping (TimeInterval?) -> Void) {
-        PHImageManager.default().requestAVAsset(forVideo: asset, options: nil) { (avAsset, audioMix, info) in
-            guard let avAsset = avAsset as? AVURLAsset else {
-                completion(nil)
-                return
-            }
-            
-            let duration = avAsset.duration.seconds
-            completion(duration)
-        }
-    }
-}
+
 
 extension DisplayViewController : UICollectionViewDataSource{
     
@@ -98,7 +74,7 @@ extension DisplayViewController : UICollectionViewDataSource{
         
         let asset = self.image[indexPath.row]
         let targetSize = CGSize(width: 100, height: 100)
-        self.imageManager.requestImage(for: self.image[indexPath.item], targetSize: targetSize, contentMode: .aspectFill, options: nil) { (image, _) in
+        mediaManager.fetchImage(for: asset, size: targetSize) { image in
             if let image = image{
                 self.cacheImage[indexPath.row] = image
             }
@@ -106,7 +82,7 @@ extension DisplayViewController : UICollectionViewDataSource{
             cell.imageViewCell.image = nil
             if asset.mediaType == .video{
                 
-                self.fetchVideoDuration(for: asset) { (duration) in
+                mediaManager.fetchVideoDuration(for: asset) { (duration) in
                     if let duration = duration{
                         var second = String(Int(duration) % 60)
                         if(second.count == 1) {
@@ -137,10 +113,20 @@ extension DisplayViewController : UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let widthVal = self.view.frame.width
-        let cellsize = widthVal/4
-        return CGSize(width: cellsize - 8 , height: cellsize - 8)
-        
-        
+        let cellsize = (widthVal - (3*4 + 2*8))/4
+        return CGSize(width: cellsize , height: cellsize)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8) // Adjust as needed
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 4 // Adjust as needed
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 4 // Adjust as needed
     }
 }
 

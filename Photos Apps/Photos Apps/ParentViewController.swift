@@ -10,50 +10,63 @@ import Photos
 import XLPagerTabStrip
 
 
-class ParentViewController: ButtonBarPagerTabStripViewController, selectedImageProtocol{
+
+class ParentViewController: ButtonBarPagerTabStripViewController, SelectedImageProtocol{
+    
     @IBOutlet weak var selctImageLabel: UILabel!
     @IBOutlet weak var nextButton: UIButton!
-    var photosMetaData = albumMetaData()
-    var childViewController = [UIViewController]()
-    var collectionView: UICollectionView?
-    let imageManager = PHCachingImageManager()
     @IBOutlet weak var heightConstraint: NSLayoutConstraint!
     @IBOutlet weak var upperView: UIView!
-    var indexPair = [currentIndexSelectedIndex]()
+    
+    var photosMetaData = AlbumMetaData()
+    var collectionView: UICollectionView?
+    let imageManager = PHCachingImageManager()
+    var indexPair = [PhotosKey]()
     
     
-    func configure(metaData : albumMetaData){
+    func configure(metaData : AlbumMetaData){
         photosMetaData = metaData
     }
     
-    struct currentIndexSelectedIndex{
+    struct PhotosKey{
         var currntIndex : Int?
         var selectedIndex : Int?
     }
     
-    // for scrolling to the next Cell
-    func scrollToNextCell(){
-        let cellSize = CGSizeMake(self.view.frame.width, self.view.frame.height);
-        let contentOffset = collectionView?.contentOffset;
-        guard let content = contentOffset else{
-            return
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        DispatchQueue.main.async{
+            self.scrollToLastItem()
         }
-        collectionView?.scrollRectToVisible(CGRectMake(content.x + cellSize.width, content.y, cellSize.width, cellSize.height), animated: true);
+    }
+    func scrollToLastItem() {
+        guard let collectionView = collectionView else { return }
+        
+        let numberOfSections = collectionView.numberOfSections
+        guard numberOfSections > 0 else { return }
+        
+        let lastSectionIndex = numberOfSections - 1
+        let numberOfItemsInLastSection = collectionView.numberOfItems(inSection: lastSectionIndex)
+        
+        guard numberOfItemsInLastSection > 0 else { return }
+        
+        let lastItemIndex = numberOfItemsInLastSection - 1
+        let lastIndexPath = IndexPath(item: lastItemIndex, section: lastSectionIndex)
+        
+        collectionView.scrollToItem(at: lastIndexPath, at: .right, animated: true)
     }
     
     func selectedImageIndex(index : Int){
-        let indexPairElement = currentIndexSelectedIndex(currntIndex: currentIndex, selectedIndex: index)
+        let indexPairElement = PhotosKey(currntIndex: currentIndex, selectedIndex: index)
         indexPair.append(indexPairElement)
         if collectionView == nil{
             registerCollectionView()
         }
         self.updateHeightMultiplier(to: 162/self.view.frame.height)
         DispatchQueue.main.async{
-            
             self.collectionView?.reloadData()
+            
         }
-        scrollToNextCell()
-        print("here is index : ")
         if indexPair.count > 0{
             nextButton.alpha = 1
             nextButton.isUserInteractionEnabled = true
@@ -95,7 +108,6 @@ class ParentViewController: ButtonBarPagerTabStripViewController, selectedImageP
         collectionView?.register(UINib(nibName: "ImageCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "ImageCell")
         collectionView?.dataSource = self
         collectionView?.delegate = self
-        
     }
     
     func updateHeightMultiplier(to multiplier: CGFloat) {
@@ -144,6 +156,7 @@ class ParentViewController: ButtonBarPagerTabStripViewController, selectedImageP
     
     //ovverriding function of xlpager For returning childViews
     override func viewControllers(for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {
+        var childViewController = [UIViewController]()
         for i in 0..<photosMetaData.photosInAlbums.count{
             let childVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "DisplayViewController") as! DisplayViewController
             childVC.barTitle = photosMetaData.albumNames[i]
@@ -177,7 +190,6 @@ class ParentViewController: ButtonBarPagerTabStripViewController, selectedImageP
                 newCell?.label.font = gilroySemibold
             }
             if let gilroyMedium = UIFont(name: "Gilroy-Medium", size: 15) {
-                
                 newCell?.label.font = gilroyMedium
             }
         }
@@ -207,6 +219,7 @@ class ParentViewController: ButtonBarPagerTabStripViewController, selectedImageP
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCell", for: indexPath) as? ImageCollectionViewCell else {
                 return UICollectionViewCell()
             }
+            
             if let index = indexPair[indexPath.row].selectedIndex , let currentInd = indexPair[indexPath.row].currntIndex{
                 print("hi this is \(index) \(currentIndex)")
                 let asset = photosMetaData.photosInAlbums[currentInd][index]

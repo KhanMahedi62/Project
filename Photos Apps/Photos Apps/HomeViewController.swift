@@ -8,77 +8,38 @@
 import UIKit
 import Photos
 
-struct albumMetaData{
+var mediaManager = MediaManager()
+
+struct AlbumMetaData{
     var albumNames = [String]()
     var photosInAlbums = [[PHAsset]]()
 }
 
 class HomeViewController: UIViewController {
     var firstTimeCallOfParentViewFlag = false
-    var metaData = albumMetaData()
-    var totalAlbums = 0
-    func requestAuthorization(){
-        PHPhotoLibrary.requestAuthorization { [weak self]  status in
-            if status == .authorized{
-                self?.fetchAlbums()
-            }
-        }
-        
-    }
-    
-    // fetching all albums
-    func fetchAlbums() {
-        var albums = [PHAssetCollection]()
-        let fetchOptions = PHFetchOptions()
-        fetchOptions.predicate = NSPredicate(format: "estimatedAssetCount > 0")
-        let userAlbums = PHAssetCollection.fetchAssetCollections(with: .album, subtype: .any, options: fetchOptions)
-        let smartAlbums = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .any, options: nil)
-        totalAlbums = smartAlbums.count + userAlbums.count
-        smartAlbums.enumerateObjects{ (collection, _, _) in
-            albums.append(collection)
-        }
-        userAlbums.enumerateObjects { (collection, _, _) in
-            albums.append(collection)
-        }
-        
-        self.fetchPhotosForAlbums(albums : albums)
-    }
-    
-    
-    // fetching photos for all albums
-    func fetchPhotosForAlbums(albums: [PHAssetCollection]) {
-        
-        for album in albums {
-            var photos = [PHAsset]()
-            let options = PHFetchOptions()
-            options.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
-            let assets = PHAsset.fetchAssets(in: album, options: options)
-            assets.enumerateObjects { (asset, _, _) in
-                photos.append(asset)
-            }
-            if photos.count > 0{
-                self.metaData.albumNames.append(album.localizedTitle ?? "Untitled Album")
-                self.metaData.photosInAlbums.append(photos)
-            }
-            else {
-                self.totalAlbums = self.totalAlbums - 1
-            }
-            DispatchQueue.main.async{
-                if self.metaData.photosInAlbums.count == self.totalAlbums {
-                    let parentView = self.storyboard?.instantiateViewController(identifier: "PagerTabStripViewController") as! ParentViewController
-                    parentView.configure(metaData : self.metaData)
-                    self.firstTimeCallOfParentViewFlag = true
-                    parentView.modalPresentationStyle = .fullScreen
-                    self.present(parentView, animated: true, completion: nil)
-                }
-                
-            }
-        }
-    }
+    var metaData = AlbumMetaData()
     
     @IBAction func photosButtonAction(_ sender: Any) {
         if firstTimeCallOfParentViewFlag == false{
-            requestAuthorization()
+            mediaManager.requestAuthorization { [weak self] isAuthorized in
+                guard let self = self else { return }
+                
+                if isAuthorized {
+                    mediaManager.fetchAlbums { [weak self] albumNames, photosInAlbums in
+                        guard let self = self else { return }
+                        DispatchQueue.main.async {
+                            self.metaData = AlbumMetaData(albumNames: albumNames , photosInAlbums: photosInAlbums)
+                            let parentView = self.storyboard?.instantiateViewController(identifier: "PagerTabStripViewController") as! ParentViewController
+                            parentView.configure(metaData: self.metaData)
+                            self.firstTimeCallOfParentViewFlag = true
+                            parentView.modalPresentationStyle = .fullScreen
+                            self.present(parentView, animated: true, completion: nil)
+                        }
+                    }
+                } else {
+                    print("Access denied to photo library.")
+                }
+            }
         }
         else{
             let parentView = self.storyboard?.instantiateViewController(identifier: "PagerTabStripViewController") as! ParentViewController
