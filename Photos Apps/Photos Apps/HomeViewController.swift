@@ -7,7 +7,6 @@
 
 import UIKit
 import Photos
-
 var mediaManager = MediaManager()
 
 struct AlbumMetaData{
@@ -15,10 +14,18 @@ struct AlbumMetaData{
     var photosInAlbums = [[PHAsset]]()
 }
 
-class HomeViewController: UIViewController {
+class HomeViewController: UIViewController  {
+    @IBOutlet weak var label: UILabel!
+    
+//    func DidFinish(image1: UIImage, image2: UIImage) {
+//        <#code#>
+//    }
+    
+    
     var firstTimeCallOfParentViewFlag = false
     var metaData = AlbumMetaData()
-    
+    @IBOutlet weak var imageViewTwo: UIImageView!
+    @IBOutlet weak var imageViewOne: UIImageView!
     @IBAction func photosButtonAction(_ sender: Any) {
         if firstTimeCallOfParentViewFlag == false{
             mediaManager.requestAuthorization { [weak self] isAuthorized in
@@ -47,6 +54,11 @@ class HomeViewController: UIViewController {
             parentView.modalPresentationStyle = .fullScreen
             self.present(parentView, animated: true, completion: nil)
         }
+    }
+    
+    func DidFinish(image1: UIImage, image2: UIImage) {
+        imageViewOne.image = image1
+        imageViewTwo.image = image2
     }
     
     override func viewDidLoad() {

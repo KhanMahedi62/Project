@@ -1,6 +1,15 @@
 {
-  "originHash" : "6babeff16ea2052a67494e3d3cdf08d61dc4038a78e9e9f178f46a78a9a7fa1a",
+  "originHash" : "482ba86830e67604a022c62fe20a71068021208d13d9dbbf8a3745d3589e7bfc",
   "pins" : [
+    {
+      "identity" : "cocoaimagehashing",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ameingast/cocoaimagehashing.git",
+      "state" : {
+        "revision" : "ad01eee3c3f91bd181f7f4eba7f48f7cb211b51c",
+        "version" : "1.9.0"
+      }
+    },
     {
       "identity" : "fxpagecontrol",
       "kind" : "remoteSourceControl",

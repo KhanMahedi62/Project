@@ -4,11 +4,9 @@
 //
 //  Created by logo_dev_f1 on 16/7/24.
 //
-
 import UIKit
 import Photos
 import XLPagerTabStrip
-
 
 
 class ParentViewController: ButtonBarPagerTabStripViewController, SelectedImageProtocol{
@@ -17,13 +15,12 @@ class ParentViewController: ButtonBarPagerTabStripViewController, SelectedImageP
     @IBOutlet weak var nextButton: UIButton!
     @IBOutlet weak var heightConstraint: NSLayoutConstraint!
     @IBOutlet weak var upperView: UIView!
-    
+
     var photosMetaData = AlbumMetaData()
     var collectionView: UICollectionView?
     let imageManager = PHCachingImageManager()
     var indexPair = [PhotosKey]()
-    
-    
+    var temporaryImage = [UIImage]()
     func configure(metaData : AlbumMetaData){
         photosMetaData = metaData
     }
@@ -56,9 +53,20 @@ class ParentViewController: ButtonBarPagerTabStripViewController, SelectedImageP
         collectionView.scrollToItem(at: lastIndexPath, at: .right, animated: true)
     }
     
-    func selectedImageIndex(index : Int){
+    @IBAction func nextButtonEvent(_ sender: Any) {
+        print(temporaryImage.count)
+        if temporaryImage.count > 1 {
+            let parentView = self.storyboard?.instantiateViewController(identifier: "CocoaImageCheck") as! CocoaImageCheck
+            parentView.DidFinish(image1: temporaryImage[0], image2: temporaryImage[1])
+            temporaryImage.removeAll()
+            self.present(parentView, animated: true, completion: nil)
+        }
+        
+    }
+    func selectedImageIndex(index : Int , image : UIImage){
         let indexPairElement = PhotosKey(currntIndex: currentIndex, selectedIndex: index)
         indexPair.append(indexPairElement)
+        temporaryImage.append(image)
         if collectionView == nil{
             registerCollectionView()
         }
@@ -157,12 +165,12 @@ class ParentViewController: ButtonBarPagerTabStripViewController, SelectedImageP
     //ovverriding function of xlpager For returning childViews
     override func viewControllers(for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {
         var childViewController = [UIViewController]()
-        for i in 0..<photosMetaData.photosInAlbums.count{
+        for i in 0..<self.photosMetaData.photosInAlbums.count{
             let childVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "DisplayViewController") as! DisplayViewController
             childVC.barTitle = photosMetaData.albumNames[i]
-            DispatchQueue.main.async{
+          
                 childVC.configure(image: self.photosMetaData.photosInAlbums[i], index: i)
-            }
+            
             childVC.selectedImageDelegate = self
             childViewController.append(childVC)
         }
