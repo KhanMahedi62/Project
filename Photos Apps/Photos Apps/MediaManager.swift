@@ -85,5 +85,16 @@ class MediaManager{
         }
     }
     
+    func deleteAsset(asset: [PHAsset], completion: @escaping (Bool, Error?) -> Void) {
+        print("delete Asset")
+        PHPhotoLibrary.shared().performChanges({
+            print("dhukci")
+            PHAssetChangeRequest.deleteAssets(asset as NSFastEnumeration)
+        }) { success, error in
+            completion(success, error)
+        }
+    }
+
+    
     
 }

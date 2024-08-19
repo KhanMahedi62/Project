@@ -8,19 +8,23 @@ import UIKit
 import Photos
 import XLPagerTabStrip
 
+protocol imageDeletionProtocol{
+    func deleteImage(index: Int, section: Int, asset: PHAsset, completion: @escaping () -> Void)
+    func callForCollectionView()
+}
+
 
 class ParentViewController: ButtonBarPagerTabStripViewController, SelectedImageProtocol{
-    
     @IBOutlet weak var selctImageLabel: UILabel!
     @IBOutlet weak var nextButton: UIButton!
     @IBOutlet weak var heightConstraint: NSLayoutConstraint!
     @IBOutlet weak var upperView: UIView!
-
+    var childViewController = [UIViewController]()
     var photosMetaData = AlbumMetaData()
     var collectionView: UICollectionView?
     let imageManager = PHCachingImageManager()
     var indexPair = [PhotosKey]()
-    var temporaryImage = [UIImage]()
+    var temporaryImage = [indexCollectionViewPair]()
     func configure(metaData : AlbumMetaData){
         photosMetaData = metaData
     }
@@ -28,6 +32,14 @@ class ParentViewController: ButtonBarPagerTabStripViewController, SelectedImageP
     struct PhotosKey{
         var currntIndex : Int?
         var selectedIndex : Int?
+        var asset : PHAsset
+    }
+    struct indexCollectionViewPair{
+        var index : Int?
+        var section : Int?
+        var asset : PHAsset?
+        var deleteImageDelegate : imageDeletionProtocol?
+        var currentIndex : Int?
     }
     
     override func viewDidLayoutSubviews() {
@@ -53,20 +65,49 @@ class ParentViewController: ButtonBarPagerTabStripViewController, SelectedImageP
         collectionView.scrollToItem(at: lastIndexPath, at: .right, animated: true)
     }
     
+    
+    
     @IBAction func nextButtonEvent(_ sender: Any) {
-        print(temporaryImage.count)
-        if temporaryImage.count > 1 {
-            let parentView = self.storyboard?.instantiateViewController(identifier: "CocoaImageCheck") as! CocoaImageCheck
-            parentView.DidFinish(image1: temporaryImage[0], image2: temporaryImage[1])
-            temporaryImage.removeAll()
-            self.present(parentView, animated: true, completion: nil)
+        var assets = [PHAsset]()
+        for i in 0..<self.temporaryImage.count{
+            if let asset = temporaryImage[i].asset {
+                assets.append(asset)
+            }
         }
-        
+        mediaManager.deleteAsset(asset: assets) { success, error in
+            if success == true{
+                let dispatch = DispatchGroup()
+                for i in 0..<self.temporaryImage.count{
+                    dispatch.enter()
+                    if let index = self.temporaryImage[i].index , let imageDeletionDelegate = self.temporaryImage[i].deleteImageDelegate , let section = self.temporaryImage[i].section , let asset = self.temporaryImage[i].asset{
+                        imageDeletionDelegate.deleteImage(index: index, section: section, asset: asset) {
+                            AssetManager.shared.trackDeleteAssets.insert(asset)
+                            print("in deletion \(String(describing: AssetManager.shared.groupImageAll[self.currentIndex]?.count))")
+                        }
+                    }
+                    dispatch.leave()
+                }
+                
+                
+                dispatch.notify(queue: .main){
+                    if let child = self.childViewController[self.currentIndex] as? DisplayViewController{
+                        child.collectionView.reloadData()
+                    }
+                    self.temporaryImage.removeAll()
+                    self.indexPair.removeAll()
+                }
+            }
+            
+        }
     }
-    func selectedImageIndex(index : Int , image : UIImage){
-        let indexPairElement = PhotosKey(currntIndex: currentIndex, selectedIndex: index)
+    
+    
+    
+    func selectedImageIndex(imageDeletionDelegate : imageDeletionProtocol , section : Int , asset : PHAsset){
+        let indexPairElement = PhotosKey(currntIndex: currentIndex, selectedIndex: 0, asset: asset)
         indexPair.append(indexPairElement)
-        temporaryImage.append(image)
+        let indexCollectionView = indexCollectionViewPair(index : 0 , section: section, asset: asset, deleteImageDelegate: imageDeletionDelegate , currentIndex: currentIndex)
+        temporaryImage.append(indexCollectionView)
         if collectionView == nil{
             registerCollectionView()
         }
@@ -82,11 +123,10 @@ class ParentViewController: ButtonBarPagerTabStripViewController, SelectedImageP
         }
     }
     
-    func deselection(index : Int){
-        print(currentIndex , indexPair.count , index)
+    func deselection(asset : PHAsset){
         for i in 0..<indexPair.count {
             if i < indexPair.count{
-                if index == indexPair[i].selectedIndex && currentIndex == indexPair[i].currntIndex{
+                if asset == indexPair[i].asset {
                     indexPair.remove(at: i)
                 }
             }
@@ -164,12 +204,11 @@ class ParentViewController: ButtonBarPagerTabStripViewController, SelectedImageP
     
     //ovverriding function of xlpager For returning childViews
     override func viewControllers(for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {
-        var childViewController = [UIViewController]()
         for i in 0..<self.photosMetaData.photosInAlbums.count{
             let childVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "DisplayViewController") as! DisplayViewController
             childVC.barTitle = photosMetaData.albumNames[i]
-          
-                childVC.configure(image: self.photosMetaData.photosInAlbums[i], index: i)
+            
+            childVC.configure(image: self.photosMetaData.photosInAlbums[i], index: i)
             
             childVC.selectedImageDelegate = self
             childViewController.append(childVC)
@@ -200,6 +239,18 @@ class ParentViewController: ButtonBarPagerTabStripViewController, SelectedImageP
             if let gilroyMedium = UIFont(name: "Gilroy-Medium", size: 15) {
                 newCell?.label.font = gilroyMedium
             }
+            if newCell != nil{
+                if let currentIndex = self?.currentIndex{
+                    if let childView = self?.childViewController[currentIndex] as? DisplayViewController{
+                        if AssetManager.shared.checkFlagForCompletingProcessing[currentIndex] == true{
+                            AssetManager.shared.deleteAssetsFromTotalAlbums(currentIndex: currentIndex)
+                            childView.groupImage =  AssetManager.shared.groupImageAll[currentIndex] ?? [[PHAsset]]()
+                            childView.collectionView.reloadData()
+                        }
+                        
+                    }
+                }
+            }
         }
         buttonBarView.delegate = self
         super.viewDidLoad()
@@ -227,17 +278,14 @@ class ParentViewController: ButtonBarPagerTabStripViewController, SelectedImageP
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCell", for: indexPath) as? ImageCollectionViewCell else {
                 return UICollectionViewCell()
             }
-            
-            if let index = indexPair[indexPath.row].selectedIndex , let currentInd = indexPair[indexPath.row].currntIndex{
-                print("hi this is \(index) \(currentIndex)")
-                let asset = photosMetaData.photosInAlbums[currentInd][index]
-                let targetSize = CGSize(width: 100, height: 100)
-                self.imageManager.requestImage(for: asset, targetSize: targetSize, contentMode: .aspectFill, options: nil) { (image, _) in
-                    if let image = image{
-                        cell.configure(image: image)
-                    }
+            let asset = indexPair[indexPath.row].asset
+            let targetSize = CGSize(width: 100, height: 100)
+            self.imageManager.requestImage(for: asset, targetSize: targetSize, contentMode: .aspectFill, options: nil) { (image, _) in
+                if let image = image{
+                    cell.configure(image: image)
                 }
             }
+            
             cell.imageView.layer.cornerRadius = 4.64
             return cell
         }

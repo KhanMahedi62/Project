@@ -16,12 +16,6 @@ struct AlbumMetaData{
 
 class HomeViewController: UIViewController  {
     @IBOutlet weak var label: UILabel!
-    
-//    func DidFinish(image1: UIImage, image2: UIImage) {
-//        <#code#>
-//    }
-    
-    
     var firstTimeCallOfParentViewFlag = false
     var metaData = AlbumMetaData()
     @IBOutlet weak var imageViewTwo: UIImageView!
@@ -36,6 +30,7 @@ class HomeViewController: UIViewController  {
                         guard let self = self else { return }
                         DispatchQueue.main.async {
                             self.metaData = AlbumMetaData(albumNames: albumNames , photosInAlbums: photosInAlbums)
+                            AssetManager.shared.photosInAlbums = photosInAlbums
                             let parentView = self.storyboard?.instantiateViewController(identifier: "PagerTabStripViewController") as! ParentViewController
                             parentView.configure(metaData: self.metaData)
                             self.firstTimeCallOfParentViewFlag = true

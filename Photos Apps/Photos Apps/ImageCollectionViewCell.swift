@@ -16,7 +16,6 @@ class ImageCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        print("hi i am intializing ")
         // Initialization code
     }
     
