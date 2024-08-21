@@ -2,12 +2,28 @@ import UIKit
 import CocoaImageHashing
 import Photos
 
+
+var imageData = [Data(), Data(), Data()]
+let similarImages = imageHashing.similarImages(withProvider: .pHash) {
+    if imageData.count > 0 {
+        let data = imageData.removeFirst()
+        return OSTuple<NSString, NSData>(first: name as NSString,
+                                         andSecond: data as NSData)
+    } else {
+        return nil
+    }
+}
+
+
+
 class SimilarImageGrouping {
     private let images: [PHAsset]
     private let mediaManager = MediaManager()
     init(images: [PHAsset]) {
         self.images = images
     }
+    
+  
 
     func process(onGroupFound: @escaping ([PHAsset]) -> Void, completion: @escaping () -> Void) {
         DispatchQueue.global().async {

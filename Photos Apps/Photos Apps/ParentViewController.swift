@@ -82,7 +82,6 @@ class ParentViewController: ButtonBarPagerTabStripViewController, SelectedImageP
                     if let index = self.temporaryImage[i].index , let imageDeletionDelegate = self.temporaryImage[i].deleteImageDelegate , let section = self.temporaryImage[i].section , let asset = self.temporaryImage[i].asset{
                         imageDeletionDelegate.deleteImage(index: index, section: section, asset: asset) {
                             AssetManager.shared.trackDeleteAssets.insert(asset)
-                            print("in deletion \(String(describing: AssetManager.shared.groupImageAll[self.currentIndex]?.count))")
                         }
                     }
                     dispatch.leave()
@@ -241,11 +240,16 @@ class ParentViewController: ButtonBarPagerTabStripViewController, SelectedImageP
             }
             if newCell != nil{
                 if let currentIndex = self?.currentIndex{
-                    if let childView = self?.childViewController[currentIndex] as? DisplayViewController{
-                        if AssetManager.shared.checkFlagForCompletingProcessing[currentIndex] == true{
-                            AssetManager.shared.deleteAssetsFromTotalAlbums(currentIndex: currentIndex)
-                            childView.groupImage =  AssetManager.shared.groupImageAll[currentIndex] ?? [[PHAsset]]()
-                            childView.collectionView.reloadData()
+                    if let childView = self?.childViewController[currentIndex] as? DisplayViewController {
+                        if AssetManager.shared.groupImageAll[currentIndex]?.checkFlagForCompletingProcessing == true{
+                            AssetManager.shared.deleteAssetsFromTotalAlbums(currentIndex: currentIndex,
+                                                                            groupCompletion: {
+                                childView.groupImage =  AssetManager.shared.groupImageAll[currentIndex]?.albumPhotos ?? [[PHAsset]]()
+                                childView.collectionView.reloadData()
+                            },
+                                                                            completion:{
+                                
+                            })
                         }
                         
                     }

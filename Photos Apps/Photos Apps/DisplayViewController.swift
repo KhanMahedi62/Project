@@ -17,9 +17,7 @@ protocol SelectedImageProtocol{
     func deselection(asset : PHAsset)
 }
 
-protocol ImageProcessingDelegate: AnyObject {
-    func didUpdateImages()
-}
+
 
 
 extension UIImage {
@@ -63,7 +61,7 @@ extension UIImage {
     }
 }
 
-class DisplayViewController: UIViewController , imageDeletionProtocol , ImageProcessingDelegate {
+class DisplayViewController: UIViewController , imageDeletionProtocol  {
     
     var selectedImageDelegate : SelectedImageProtocol?
     var barTitle : String?
@@ -77,19 +75,11 @@ class DisplayViewController: UIViewController , imageDeletionProtocol , ImagePro
     @IBOutlet weak var viedioLabel: UILabel!
     var groupImage = [[PHAsset]]()
     
-    func didUpdateImages() {
-        if let currentIndexx = self.currentIndex{
-            groupImage = AssetManager.shared.groupImageAll[currentIndexx] ?? [[PHAsset]]()
-            DispatchQueue.main.async{
-                self.collectionView.reloadData()
-            }
-        }
-    }
     
     func configure(image : [PHAsset], index : Int){
         self.image = image
         self.currentIndex = index
-        AssetManager.shared.delegate[index] = self
+        //        AssetManager.shared.delegate[index] = self
     }
     
     @IBAction func downArrayButtonEvenet(_ sender: Any) {
@@ -101,10 +91,24 @@ class DisplayViewController: UIViewController , imageDeletionProtocol , ImagePro
         collectionView.dataSource = self
         collectionView.delegate = self
         if let currentIndex = self.currentIndex{
-            AssetManager.shared.processImage(currentIndex: currentIndex){
-                AssetManager.shared.checkFlagForCompletingProcessing[currentIndex] = true
-                AssetManager.shared.deleteAssetsFromTotalAlbums(currentIndex : currentIndex)
-            }
+            AssetManager.shared.processImage(currentIndex: currentIndex,
+                                             groupCompletion: {
+                self.groupImage = AssetManager.shared.groupImageAll[currentIndex]?.albumPhotos ?? [[PHAsset]]()
+                DispatchQueue.main.async{
+                    self.collectionView.reloadData()
+                }
+            },
+                                             completion: {
+                AssetManager.shared.groupImageAll[currentIndex]?.checkFlagForCompletingProcessing = true
+                AssetManager.shared.deleteAssetsFromTotalAlbums(currentIndex: currentIndex,
+                                                                groupCompletion:{
+                    self.groupImage = AssetManager.shared.groupImageAll[currentIndex]?.albumPhotos ?? [[PHAsset]]()
+                    DispatchQueue.main.async{
+                        self.collectionView.reloadData()
+                    }
+                },
+                                                                completion:{})
+            })
         }
     }
 }

@@ -10,43 +10,57 @@ import UIKit
 import Photos
 
 
+
 class AssetManager{
     var trackDeleteAssets: Set<PHAsset> = []
-    var delegate: [Int : ImageProcessingDelegate]  = [:]
     private init(){}
     static let shared = AssetManager()
     var photosInAlbums = [[PHAsset]]()
-    var groupImageAll: [Int: [[PHAsset]]] = [:]
-    var checkFlagForCompletingProcessing : [Int : Bool] = [:]
+    var groupImageAll: [Int: infroationAboutAlbums] = [:]
     
-    func processImage(currentIndex: Int, completion: (() -> Void)? = nil) {
+    struct infroationAboutAlbums{
+        var albumPhotos = [[PHAsset]]()
+        var checkFlagForCompletingProcessing = false
+    }
+    
+    
+    func processImage(currentIndex: Int, groupCompletion: (() -> Void)? = nil, completion: (() -> Void)? = nil) {
         let imageGrouping = SimilarImageGrouping(images: self.photosInAlbums[currentIndex])
         var groupImage = [[PHAsset]]()
+        
         imageGrouping.process(onGroupFound: { [weak self] (group: [PHAsset]) in
             guard let self = self else { return }
             groupImage.append(group)
-            self.groupImageAll[currentIndex] = groupImage
-            self.delegate[currentIndex]?.didUpdateImages()
+            let groupInformation = infroationAboutAlbums(albumPhotos: groupImage , checkFlagForCompletingProcessing: false)
+            self.groupImageAll[currentIndex] = groupInformation
+            DispatchQueue.main.async {
+                groupCompletion?()
+            }
         }, completion: {
             DispatchQueue.main.async {
                 completion?()
             }
         })
     }
+
     
     
-    func deleteAssetsFromTotalAlbums(currentIndex : Int) {
-        var updatedAlbum = groupImageAll[currentIndex] ?? [[PHAsset]]()
+    func deleteAssetsFromTotalAlbums(currentIndex: Int, groupCompletion: (() -> Void)? = nil, completion: (() -> Void)? = nil) {
+        var updatedAlbum = groupImageAll[currentIndex]?.albumPhotos ?? [[PHAsset]]()
         for groupIndex in 0..<updatedAlbum.count {
             var updatedGroup = updatedAlbum[groupIndex]
             updatedGroup.removeAll { asset in
                 self.trackDeleteAssets.contains(asset)
             }
             updatedAlbum[groupIndex] = updatedGroup
-            groupImageAll[currentIndex] = updatedAlbum
-            if let delegate = self.delegate[currentIndex]{
-                delegate.didUpdateImages()
+            DispatchQueue.main.async {
+                groupCompletion?()
             }
+        }
+        let groupInformation = infroationAboutAlbums(albumPhotos: updatedAlbum , checkFlagForCompletingProcessing: groupImageAll[currentIndex]?.checkFlagForCompletingProcessing ?? false)
+        groupImageAll[currentIndex] = groupInformation
+        DispatchQueue.main.async {
+            completion?()
         }
     }
     
